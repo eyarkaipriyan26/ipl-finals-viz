@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPL Finals — Closeness Ranking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="topbar-label">Data · ESPNcricinfo win probability</div>
+    <div class="theme-toggle" onclick="toggleTheme()">
+      <span class="toggle-icon" id="toggleIcon">☀</span>
+      <span id="toggleLabel">Light mode</span>
+    </div>
+  </div>
+
+  <div class="header">
+    <h1>IPL Finals<br><span>Closeness</span> Ranking</h1>
+    <p class="header-sub">
+      Each final scored on two dimensions: how late and large the win probability swings were
+      (late swing), and how volatile the WP was throughout the entire match (volatility).
+      Equally weighted to produce a composite closeness score.
+    </p>
+  </div>
+
+  <div class="metrics-row" id="summaryMetrics"></div>
+
+  <div class="chart-wrap">
+    <div class="section-label">All 18 IPL finals — closeness score (click to inspect)</div>
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#7F77DD"></div>
+        Late swing score (50% weight)
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#1D9E75"></div>
+        Volatility score (50% weight)
+      </div>
+    </div>
+    <div class="chart-canvas-wrap"><canvas id="mainChart"></canvas></div>
+  </div>
+
+  <div class="section-label">Ranked list — click any match to view WP curve</div>
+  <div class="rank-list" id="rankList"></div>
+
+  <div class="wp-panel" id="wpPanel">
+    <div class="wp-panel-title" id="wpTitle"></div>
+    <div class="wp-panel-sub"   id="wpSub"></div>
+    <div class="wp-score-row"   id="wpScoreRow"></div>
+    <div class="wp-canvas-wrap"><canvas id="wpChart"></canvas></div>
+    <div class="wp-hint">
+      Win probability for team batting first across both innings.
+      Red dots = swings &gt;15pp. Dashed line = 50%.
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Methodology</strong><br>
+    Late swing score: &Sigma; |&Delta;WP<sub>i</sub>| &times; (i&nbsp;/&nbsp;N&minus;1)
+    — weights each swing by how late it occurs in the match.<br>
+    Volatility score: standard deviation of the full WP series across both innings.<br>
+    Both scores normalised 0–100 across all 18 finals, then averaged 50/50.<br>
+    Win probability data manually extracted from ESPNcricinfo charts
+    · over-level granularity · 2008–2025.
+  </div>
+
+</div>
+
+<!-- compute first, then viz (viz calls loadAndCompute from compute.js) -->
+<script src="./js/compute.js"></script>
+<script src="./js/viz.js"></script>
+<script>init();</script>
+</body>
+</html>

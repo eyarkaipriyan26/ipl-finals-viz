@@ -1,0 +1,137 @@
+/* style.css */
+
+:root, [data-theme="dark"] {
+  --bg:        #0e0f11;
+  --surface:   #16181c;
+  --surface2:  #1e2026;
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.14);
+  --text:      #e8e6e0;
+  --muted:     #6b6b72;
+  --bar-track: rgba(255,255,255,0.07);
+  --toggle-bg: #1e2026;
+}
+
+[data-theme="light"] {
+  --bg:        #f5f4f0;
+  --surface:   #ffffff;
+  --surface2:  #efefeb;
+  --border:    rgba(0,0,0,0.09);
+  --border2:   rgba(0,0,0,0.16);
+  --text:      #1a1a1c;
+  --muted:     #888780;
+  --bar-track: rgba(0,0,0,0.07);
+  --toggle-bg: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+.page { max-width: 960px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+/* ── Top bar ── */
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+.topbar-label { font-size: 11px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; }
+
+.theme-toggle {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--toggle-bg);
+  border: 0.5px solid var(--border2);
+  border-radius: 20px; padding: 5px 14px;
+  cursor: pointer; font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  transition: background 0.2s, border-color 0.2s;
+  user-select: none;
+}
+.theme-toggle:hover { border-color: var(--border2); color: var(--text); }
+.toggle-icon { font-size: 13px; line-height: 1; }
+
+/* ── Header ── */
+.header { margin-bottom: 3rem; }
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
+}
+.header h1 span { color: #7F77DD; }
+.header-sub { margin-top: 1rem; font-size: 13px; color: var(--muted); max-width: 560px; line-height: 1.7; }
+
+/* ── Metrics ── */
+.metrics-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 3rem; }
+.metric { background: var(--surface); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.25rem; transition: background 0.2s; }
+.metric .val { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.3; }
+.metric .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* ── Section label ── */
+.section-label { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+/* ── Legend ── */
+.legend { display: flex; gap: 20px; margin-bottom: 14px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Main chart wrap ── */
+.chart-wrap { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 3rem; transition: background 0.2s; }
+.chart-canvas-wrap { position: relative; width: 100%; height: 820px; }
+
+/* ── Rank list ── */
+.rank-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.5rem; }
+.rank-row {
+  display: grid; grid-template-columns: 32px 1fr 160px 60px;
+  align-items: center; gap: 12px; padding: 12px 16px;
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: 10px; cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.rank-row:hover { background: var(--surface2); border-color: var(--border2); }
+.rank-row.selected { border: 1.5px solid #7F77DD; background: var(--surface2); }
+
+.rk { font-size: 12px; color: var(--muted); text-align: center; }
+.match-name { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 500; }
+.match-result { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.bar-group { display: flex; flex-direction: column; gap: 5px; }
+.bar-row { display: flex; align-items: center; gap: 6px; }
+.bar-lbl { font-size: 10px; width: 16px; flex-shrink: 0; text-align: right; }
+.bar-track { flex: 1; height: 4px; background: var(--bar-track); border-radius: 2px; overflow: hidden; }
+.bar-fill { height: 4px; border-radius: 2px; }
+.bar-num { font-size: 10px; width: 26px; text-align: right; flex-shrink: 0; }
+
+.comp-score { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; text-align: right; }
+
+.tier-badge { display: inline-block; font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 20px; letter-spacing: 0.05em; margin-left: 6px; vertical-align: middle; }
+.tier-classic  { background: rgba(127,119,221,0.18); color: #7F77DD; }
+.tier-close    { background: rgba(186,117,23,0.15);  color: #BA7517; }
+.tier-onesided { background: rgba(107,107,114,0.18); color: #888780; }
+
+/* ── WP panel ── */
+.wp-panel { background: var(--surface); border: 0.5px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-top: 8px; display: none; transition: background 0.2s; }
+.wp-panel-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.wp-panel-sub { font-size: 11px; color: var(--muted); margin-bottom: 1rem; }
+.wp-score-row { display: flex; gap: 20px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.wp-score-chip { font-size: 12px; color: var(--muted); }
+.wp-score-chip span { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; margin-left: 4px; color: var(--text); }
+.wp-canvas-wrap { position: relative; width: 100%; height: 220px; }
+.wp-hint { font-size: 11px; color: var(--muted); margin-top: 10px; }
+
+/* ── Footer ── */
+.footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); font-size: 11px; color: var(--muted); line-height: 1.8; }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .page { padding: 2rem 1rem 4rem; }
+  .metrics-row { grid-template-columns: 1fr 1fr; }
+  .rank-row { grid-template-columns: 28px 1fr 50px; }
+  .bar-group { display: none; }
+  .chart-canvas-wrap { height: 600px; }
+}
