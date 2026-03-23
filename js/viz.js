@@ -25,7 +25,7 @@ function toggleTheme() {
   document.getElementById('toggleLabel').textContent = isDark ? 'Light mode' : 'Dark mode';
   // Rebuild charts with new palette
   renderMainChart();
-  if (selIdx !== null) showWP(selIdx);
+  if (selIdx !== null) showWP(selIdx, false);
 }
 
 function chartColors() {
@@ -153,14 +153,17 @@ function renderRankList() {
 }
 
 // ── WP curve ──────────────────────────────────────────────────────
-function showWP(i) {
+function showWP(i, scroll = true) {
   if (selIdx !== null) {
     const prev = document.getElementById('row-' + selIdx);
     if (prev) prev.classList.remove('selected');
   }
   selIdx = i;
   const row = document.getElementById('row-' + i);
-  if (row) { row.classList.add('selected'); row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+  if (row) {
+    row.classList.add('selected');
+    if (scroll) row.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
 
   const d = DATA[i];
   const N = d.wp.length;
